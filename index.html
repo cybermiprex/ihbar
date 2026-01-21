@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybermiprex</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --main-navy: #0d1b2a; --accent-blue: #3498db; --alert-yellow: #f1c40f; --text-gray: #555; }
+        body { margin: 0; font-family: 'Roboto', sans-serif; background: #f4f7f9; color: #333; }
+        
+        .disclaimer { background: var(--alert-yellow); color: #000; padding: 10px; text-align: center; font-size: 13px; font-weight: bold; border-bottom: 2px solid #d4ac0d; }
+        
+        header { background: var(--main-navy); color: white; padding: 25px 10%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .logo-area { display: flex; align-items: center; gap: 15px; font-family: 'Oswald', sans-serif; font-size: 26px; }
+        .logo-area img { width: 60px; height: auto; }
+
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+
+        .card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        h1 { color: var(--main-navy); font-family: 'Oswald', sans-serif; border-bottom: 3px solid var(--accent-blue); display: inline-block; margin-bottom: 25px; }
+        
+        .mission-statement { background: #eef2f7; border-left: 5px solid var(--accent-blue); padding: 15px; margin-bottom: 30px; font-size: 14px; font-style: italic; }
+
+        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .full { grid-column: span 2; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 15px; }
+        
+        .checkbox-area { margin: 20px 0; display: flex; gap: 10px; align-items: flex-start; }
+        .checkbox-area input { width: auto; margin-top: 4px; }
+        .checkbox-area label { font-weight: normal; font-size: 13px; color: #666; cursor: pointer; }
+
+        .btn { background: var(--accent-blue); color: white; border: none; padding: 18px; font-size: 16px; font-weight: bold; border-radius: 6px; width: 100%; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
+        .btn:hover { background: var(--main-navy); transform: translateY(-2px); }
+
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .info-box { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .info-box h4 { margin: 0 0 10px 0; color: var(--accent-blue); }
+        .info-box p { font-size: 13.5px; line-height: 1.6; color: var(--text-gray); margin: 0; }
+
+        footer { text-align: center; padding: 50px; color: #999; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+    <div class="disclaimer">
+        RESMİ DEVLET SİTESİ DEĞİLDİR
+    </div>
+
+    <header>
+        <div class="logo-area">
+            <img src="https://share.google/WyFTBXhZ23XtYImF5" alt="Logo">
+            CYBER MİPREX
+        </div>
+        <div style="font-size: 14px; font-weight: bold; color: #4cd137;">● SİSTEM ÇEVRİMİÇİ</div>
+    </header>
+
+    <div class="container">
+        <main class="card">
+            <h1>Siber Olay İhbar Formu</h1>
+            
+            <div class="mission-statement">
+                "Amacımız; siber tehditleri analiz ederek ulusal siber güvenlik birimlerimizin (USOM) iş yükünü hafifletmek ve ihbar süreçlerine gönüllü destek sağlamaktır."
+            </div>
+
+            <form id="ihbarForm">
+                <div class="grid-inputs">
+                    <div class="input-group">
+                        <label>Adınız Soyadınız</label>
+                        <input type="text" name="isim" placeholder="Kimliğiniz gizli kalabilir" required>
+                    </div>
+                    <div class="input-group">
+                        <label>E-Posta Adresiniz</label>
+                        <input type="email" name="email" placeholder="Geri dönüş için" required>
+                    </div>
+                    <div class="input-group">
+                        <label>İhbar Kategorisi</label>
+                        <select name="olay_turu" required>
+                            <option value="Phishing">Oltalama (Phishing)</option>
+                            <option value="Zararlı Yazılım">Zararlı Yazılım (Malware)</option>
+                            <option value="DDoS">DDoS Saldırısı</option>
+                            <option value="Diğer">Diğer Siber Olaylar</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Zararlı URL / IP / Konu</label>
+                        <input type="text" name="konu" placeholder="Örn: www.sahte-site.com" required>
+                    </div>
+                    <div class="input-group full">
+                        <label>Olay Detayları</label>
+                        <textarea name="mesaj" rows="5" placeholder="Lütfen tespitinizi detaylıca açıklayınız..." required></textarea>
+                    </div>
+                </div>
+
+                <div class="checkbox-area">
+                    <input type="checkbox" id="confirm" required>
+                    <label for="confirm">Bu formun resmi bir kurum olmadığını, gönüllü bir asistanlık hizmeti olduğunu ve bilgilerimin hem yöneticiye hem de <b>ihbar@usom.gov.tr</b> adresine iletileceğini kabul ediyorum.</label>
+                </div>
+
+                <button type="submit" class="btn">İhbar gönder</button>
+            </form>
+        </main>
+
+        <aside class="sidebar">
+            <div class="info-box">
+                <h4>🚀 Nasıl Çalışır?</h4>
+                <p>Gönderdiğiniz veriler eş zamanlı olarak Telegram üzerinden teknik ekibimize ve e-posta yoluyla resmi USOM ihbar hattına iletilir.</p>
+            </div>
+            <div class="info-box">
+                <h4>🛡️ Güvenlik</h4>
+                <p>Verileriniz uçtan uca şifrelenir. Amacımız siber suçlarla mücadelede bir köprü görevi görmektir.</p>
+            </div>
+            <div class="info-box" style="border-left: 4px solid #e74c3c;">
+                <h4>📢 Resmi Bildirim</h4>
+                <p>Resmi kanaldan bildirim yapmak için:<br><a href="https://www.usom.gov.tr" target="_blank">usom.gov.tr</a></p>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        Cyber Miprex © 2026 | Siber Güvenlik Birimlerine Destek Projesidir.
+    </footer>
+
+    <script>
+        document.getElementById('ihbarForm').onsubmit = function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('.btn');
+            btn.innerHTML = "VERİLER İŞLENİYOR VE İLETİLYOR...";
+            btn.disabled = true;
+
+            const formData = new FormData(this);
+            fetch('gonder.php', { method: 'POST', body: formData })
+            .then(() => {
+                Swal.fire({
+                    title: 'BAŞARILI',
+                    text: 'İhbarınız hem yöneticiye hem de resmi USOM hattına raporlandı. Duyarlılığınız için teşekkürler.',
+                    icon: 'success',
+                    confirmButtonColor: '#3498db'
+                });
+                this.reset();
+                btn.innerHTML = "Veriyi İmzala ve Çift Yönlü Gönder";
+                btn.disabled = false;
+            });
+        };
+    </script>
+</body>
+</html>
