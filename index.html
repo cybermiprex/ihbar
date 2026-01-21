@@ -72,7 +72,7 @@
                         <input type="text" name="isim" placeholder="Kimliğiniz gizli kalabilir" required>
                     </div>
                     <div class="input-group">
-                        <label>E-Posta Adresiniz</label>
+                        <label>E-Posta Adresiniz(lütfen iletişime geçeceğimiz bir e posta giriniz)</label>
                         <input type="email" name="email" placeholder="Geri dönüş için" required>
                     </div>
                     <div class="input-group">
@@ -165,7 +165,7 @@
         })
         .then(response => {
             if (response.ok) {
-                Swal.fire('Başarılı!', 'İhbarınız bota iletildi.', 'success');
+                Swal.fire('Başarılı!', 'İhbarınız değerlendirilince size bildireceğiz.', 'success');
                 this.reset();
             } else {
                 Swal.fire('Hata!', 'Telegram bağlantısı kurulamadı. Botu başlattığınızdan emin olun.', 'error');
@@ -175,7 +175,7 @@
             Swal.fire('Hata!', 'Bir bağlantı sorunu oluştu.', 'error');
         })
         .finally(() => {
-            btn.innerHTML = "İHBARI ÇİFT YÖNLÜ GÖNDER";
+            btn.innerHTML = "İHBARI GÖNDER";
             btn.disabled = false;
         });
     };
