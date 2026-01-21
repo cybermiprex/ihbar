@@ -1,8 +1,6 @@
 <?php
-// --- AYARLAR ---
-$token = "BOT_TOKEN_BURAYA"; // BotFather'dan aldığın token
-$chat_id = "CHAT_ID_BURAYA"; // Senin chat id numaran
-$site_mail = "bilgi@seninsiten.com"; // Sunucundaki mail
+$token = "8412069744:AAH8tnhlIEujbQs6l9xayz4RH1pcK33NWv8"; 
+$chat_id = "7038362008"; 
 
 if ($_POST) {
     $isim  = htmlspecialchars($_POST['isim']);
@@ -10,23 +8,19 @@ if ($_POST) {
     $turu  = htmlspecialchars($_POST['olay_turu']);
     $konu  = htmlspecialchars($_POST['konu']);
     $mesaj = htmlspecialchars($_POST['mesaj']);
-    $tarih = date("d.m.Y H:i:s");
 
-    // 1. TELEGRAM GÖNDERİMİ
-    $tgMsg = "🚨 *YENİ İHBAR (USOM+BİREYSEL)* 🚨\n";
+    $tgMsg = "🚨 *ÜCRETSİZ PORTAL - YENİ İHBAR* 🚨\n";
     $tgMsg .= "👤 Bildiren: $isim\n📂 Tür: $turu\n🌐 Hedef: $konu\n📝 Detay: $mesaj";
     
+    // Telegram'a gönder
     $url = "https://api.telegram.org/bot$token/sendMessage?chat_id=$chat_id&text=".urlencode($tgMsg)."&parse_mode=Markdown";
-    file_get_contents($url);
-
-    // 2. USOM E-POSTA GÖNDERİMİ
-    $usom_mail = "ihbar@usom.gov.tr";
-    $subject = "Gönüllü Siber İhbar Raporu: $konu";
-    $content = "Sayın Yetkili,\n\nGönüllü siber asistanlık portalı üzerinden bir ihbar alınmıştır:\n\n";
-    $content .= "TÜR: $turu\nHEDEF: $konu\nBİLDİREN: $isim ($email)\nDETAYLAR: $mesaj\n\nBu e-posta siber güvenlik birimlerine destek amaçlı otomatik iletilmiştir.";
     
-    $headers = "From: $site_mail\r\nReply-To: $email";
-    mail($usom_mail, $subject, $content, $headers);
+    // Ücretsiz hostinglerde file_get_contents bazen kapalıdır, curl deneyelim
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_exec($ch);
+    curl_close($ch);
 
     echo "success";
 }
