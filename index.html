@@ -123,27 +123,62 @@
         Cyber Miprex © 2026 | Siber Güvenlik Birimlerine Destek Projesidir.
     </footer>
 
-    <script>
-        document.getElementById('ihbarForm').onsubmit = function(e) {
-            e.preventDefault();
-            const btn = this.querySelector('.btn');
-            btn.innerHTML = "VERİLER İŞLENİYOR VE İLETİLYOR...";
-            btn.disabled = true;
+<script>
+    document.getElementById('ihbarForm').onsubmit = function(e) {
+        e.preventDefault();
+        const btn = this.querySelector('.btn');
+        btn.innerHTML = "SİSTEME İŞLENİYOR...";
+        btn.disabled = true;
 
-            const formData = new FormData(this);
-            fetch('gonder.php', { method: 'POST', body: formData })
-            .then(() => {
-                Swal.fire({
-                    title: 'BAŞARILI',
-                    text: 'İhbarınız hem yöneticiye hem de resmi USOM hattına raporlandı. Duyarlılığınız için teşekkürler.',
-                    icon: 'success',
-                    confirmButtonColor: '#3498db'
-                });
+        // Senin Bilgilerin (JS içinde doğrudan gönderim)
+        const token = "8412069744:AAH8tnhlIEujbQs6l9xayz4RH1pcK33NWv8";
+        const chat_id = "7038362008";
+
+        // Formdaki Verileri Al
+        const isim = this.isim.value;
+        const email = this.email.value;
+        const turu = this.olay_turu.value;
+        const konu = this.konu.value;
+        const mesaj = this.mesaj.value;
+
+        // Telegram Mesaj Taslağı
+        const text = `🛡️ *YENİ SİBER İHBAR* 🛡️\n` +
+                     `━━━━━━━━━━━━━━━━━━━━\n` +
+                     `👤 *Bildiren:* ${isim}\n` +
+                     `📧 *E-Posta:* ${email}\n` +
+                     `📂 *Tür:* ${turu}\n` +
+                     `🌐 *Hedef:* ${konu}\n` +
+                     `📝 *Detay:* ${mesaj}\n` +
+                     `━━━━━━━━━━━━━━━━━━━━`;
+
+        // Telegram API'sine doğrudan istek at
+        const url = `https://api.telegram.org/bot${token}/sendMessage`;
+        
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: chat_id,
+                text: text,
+                parse_mode: 'Markdown'
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                Swal.fire('Başarılı!', 'İhbarınız bota iletildi.', 'success');
                 this.reset();
-                btn.innerHTML = "Veriyi İmzala ve Çift Yönlü Gönder";
-                btn.disabled = false;
-            });
-        };
-    </script>
+            } else {
+                Swal.fire('Hata!', 'Telegram bağlantısı kurulamadı. Botu başlattığınızdan emin olun.', 'error');
+            }
+        })
+        .catch(error => {
+            Swal.fire('Hata!', 'Bir bağlantı sorunu oluştu.', 'error');
+        })
+        .finally(() => {
+            btn.innerHTML = "İHBARI ÇİFT YÖNLÜ GÖNDER";
+            btn.disabled = false;
+        });
+    };
+                </script>
 </body>
 </html>
